@@ -1,4 +1,4 @@
-package week03.courierapp;
+package weeksInClassLessons.week03.courierapp;
 
 import java.util.Scanner;
 

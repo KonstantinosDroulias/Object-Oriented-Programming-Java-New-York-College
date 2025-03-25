@@ -1,6 +1,4 @@
-package weekTasks.week01;
-
-import com.sun.source.doctree.EndElementTree;
+package weeksTasks.week01;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,7 +84,7 @@ public class petClinic {
     }
 
     static void addType(String type) {
-        scanner.nextLine();
+        //scanner.nextLine();
 
         if (type == null) {
             System.out.print("Enter pet type: ");

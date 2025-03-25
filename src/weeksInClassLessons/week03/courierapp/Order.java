@@ -1,4 +1,4 @@
-package week03.courierapp;
+package weeksInClassLessons.week03.courierapp;
 
 public class Order {
     private int id;

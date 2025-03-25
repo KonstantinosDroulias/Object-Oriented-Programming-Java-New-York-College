@@ -1,4 +1,4 @@
-package week02;
+package weeksInClassLessons.week02;
 
 /*
 Ask user for two numbers and print sum,

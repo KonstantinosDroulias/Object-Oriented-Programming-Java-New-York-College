@@ -1,4 +1,4 @@
-package week02;
+package weeksInClassLessons.week02;
 
 import java.util.InputMismatchException;
 import java.util.Random;
