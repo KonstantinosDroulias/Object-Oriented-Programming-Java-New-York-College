@@ -12,7 +12,6 @@ public class Main {
     static ArrayList<Team> teams = new ArrayList<>();
 
     public static void main(String[] args) {
-        Team team01 = new Team("Real Madrid", 1 ,1 ,1);
 
         boolean exit = false;
         do {
