@@ -20,6 +20,11 @@ So to challenge my self I tried to run as clean code as I possibly could and wro
 That was great training for me since that at the same time I am trying other coding languages and building stuff to learn to keep my code clean and easy to make changes/fixes since I know what is responsible for what.<br>
 That's also something I grew to love about java the OOP side and I am excited to learn that in the other langauges to keep my code clean
 
+## Week 03
+
+Completed the week 03 task. I wanted to extended and understand how to connect a sql database with my projects and also build a desktop window app. So I watched a 4hours course for the swing library. After watching 2hours of that course I went on to the project. I also tried watching a course on java jdbc but didn't find any good quality videos explaining it. So I did this entire task with the help of chat gpt. I asked it how does jdbc work and how to make a connection and query data from my database (local hosted on my machine). And it helped me but still I had problems understanding so I asked it to complete the task for me so I can atleast have a code that works and can study from that. After carefully examining the complete code I think I understand how to query and also use the swing library. <br>
+Planning on adding a login page and a product for admins to insert more books.
+
 #### ** I paused here again to complete the YouTube course so I can complete the rest of the tasks and upcoming weekly tasks using all the knowladge I got. **
 
 *NOTE: At the same time as I was taking that course I also complete a Javascript YouTube Course and built 2 apps. A Todo List this is the link <a>https://github.com/KonstantinosDroulias/JavaScript-Todo-App</a> to the github repository(it just needs for me to add a caching functionality so users info doesn't get lost) and a calculator app with only "+" function and I did that in the codepen here is the link <a>https://codepen.io/Konstantinos-Droulias/pen/ZYEBrbw</a> (for some reason when you do plus anything with 0 it doesn't work it's like it doesn't exist example 10 + 7 = 8 haven't yet go around it). 

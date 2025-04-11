@@ -29,11 +29,11 @@ public class AppDisplay extends JFrame {
         for (Book book : booksList.getBookList()) {
             JPanel bookCard = new JPanel();
             bookCard.setLayout(new BoxLayout(bookCard, BoxLayout.Y_AXIS));
-            bookCard.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            bookCard.setBackground(Color.WHITE);
+            //bookCard.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            bookCard.setBackground(new Color(0xDDD8CF));
 
             // Book image
-            ImageIcon rawIcon = new ImageIcon("48-laws.jpg");
+            ImageIcon rawIcon = new ImageIcon("src/weeksTasks/" + book.getBookImage());
             Image scaledImage = rawIcon.getImage().getScaledInstance(120, 160, Image.SCALE_SMOOTH);
             JLabel imgLabel = new JLabel(new ImageIcon(scaledImage));
             imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
