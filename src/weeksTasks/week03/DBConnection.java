@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DBConnection {
     public Connection getConnection() {
-        String url = "jdbc:mysql://localhost:3306/bookstore"; // FIXED: '//' -> '://'
-        String user = "test";  // your MySQL username
-        String password = "test";  // your MySQL password
+        String url = "jdbc:mysql://localhost:3306/bookstore";
+        String user = "test";
+        String password = "test";
 
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
@@ -16,7 +16,7 @@ public class DBConnection {
             return conn;
         } catch (SQLException e) {
             System.out.println("❌ Connection with Server Error");
-            e.printStackTrace();  // helps to debug connection problems
+            e.printStackTrace();
             return null;
         }
     }

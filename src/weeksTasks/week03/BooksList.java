@@ -97,5 +97,9 @@ public class BooksList {
         return bookList;
     }
 
+    public int getBookListSize() {
+        return bookList.size();
+    }
+
 
 }
