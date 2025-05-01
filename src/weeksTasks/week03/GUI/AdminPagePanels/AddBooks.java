@@ -145,10 +145,10 @@ public class AddBooks extends JPanel implements ActionListener {
                 stmt.setString(1, bookTitle.getTextInput());
                 stmt.setString(2, fileName.getText());
                 stmt.setString(3, bookAuthor.getTextInput());
-                int isbn = Integer.parseInt(ISBN.getTextInput());
-                stmt.setInt(4, isbn);
                 double priceValue = Double.parseDouble(price.getTextInput().trim());
-                stmt.setDouble(5, priceValue);
+                stmt.setDouble(4, priceValue);
+                int isbn = Integer.parseInt(ISBN.getTextInput());
+                stmt.setInt(5, isbn);
 
                 int rowsInserted = stmt.executeUpdate();
 
@@ -246,6 +246,14 @@ public class AddBooks extends JPanel implements ActionListener {
             int bookStock = Integer.parseInt(stock.getTextInput().trim());
             stmt.setInt(2, bookStock);
             stmt.setInt(3, bookId);
+            int rowsInserted = stmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Hard cover book added to PrintedBook table.");
+            } else {
+                System.out.println("Insert failed. No rows affected.");
+            }
+
         } catch (SQLException d) {
             System.out.println("Database error: " + d.getMessage());
             d.printStackTrace();
@@ -259,6 +267,13 @@ public class AddBooks extends JPanel implements ActionListener {
             int bookKb = Integer.parseInt(kb.getTextInput().trim());
             stmt.setInt(1, bookKb);
             stmt.setInt(2, bookId);
+            int rowsInserted = stmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Ebook added to Ebook table.");
+            } else {
+                System.out.println("Insert failed. No rows affected.");
+            }
         } catch (SQLException d) {
             System.out.println("Database error: " + d.getMessage());
             d.printStackTrace();
@@ -267,11 +282,18 @@ public class AddBooks extends JPanel implements ActionListener {
     public void addAudioBook() {
         try {
             Connection conn = db.getConnection();
-            String addEbook = "INSERT INTO Ebook (Duration, BookID) VALUES (?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(addEbook);
+            String addAudioBook = "INSERT INTO AudioBook (Duration, BookID) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(addAudioBook);
             int bookDuration = Integer.parseInt(duration.getTextInput().trim());
             stmt.setInt(1, bookDuration);
             stmt.setInt(2, bookId);
+            int rowsInserted = stmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Audio book added to AudiBook table.");
+            } else {
+                System.out.println("Insert failed. No rows affected.");
+            }
         } catch (SQLException d) {
             System.out.println("Database error: " + d.getMessage());
             d.printStackTrace();
