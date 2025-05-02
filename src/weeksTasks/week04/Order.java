@@ -1,12 +1,15 @@
 package weeksTasks.week04;
 
+
+import java.sql.Date;
+
 public class Order {
     private int orderID;
-    private float amount;
-    private String date;
+    private Date date;
+    private double amount;
     private int customerID;
 
-    public Order(int orderID, String date, float amount, int customerID) {
+    public Order(int orderID, Date date, double amount, int customerID) {
         this.orderID = orderID;
         this.date = date;
         this.amount = amount;
@@ -19,13 +22,13 @@ public class Order {
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
     public void setAmount(float amount) {
