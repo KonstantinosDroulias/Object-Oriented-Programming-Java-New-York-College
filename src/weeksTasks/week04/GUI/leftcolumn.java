@@ -18,9 +18,9 @@ public class leftcolumn extends JPanel {
 
         JPanel addOrderPanel = new JPanel();
         addOrderPanel.setLayout(new BoxLayout(addOrderPanel, BoxLayout.Y_AXIS));
-        NameOrderLabel = new LabelTextInput("Name", "Insert Customer's Name");
-        EmailOrder = new LabelTextInput("Email", "Insert Customer's Email");
-        PriceOrderLabel = new LabelTextInput("Amount (Format: 0.00)", "Insert Order's Price in x.00 format");
+        NameOrderLabel = new LabelTextInput("Name", "", false);
+        EmailOrder = new LabelTextInput("Email", "", false);
+        PriceOrderLabel = new LabelTextInput("Amount (Format: 0.00)", "Insert Order's Price in x.00 format", false);
         JButton AddOrderButton = new JButton("Add Order");
         AddOrderButton.addActionListener(new addOrder(this));
         addOrderPanel.add(NameOrderLabel);

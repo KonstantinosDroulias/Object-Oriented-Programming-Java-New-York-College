@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class CSVManager {
+    static double RevenueTotal = 0;
 
     public static void exportToCSV(String filePath, List<CustomerOrder> orders) {
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -19,8 +20,9 @@ public class CSVManager {
                         co.getOrder().getDate(),
                         co.getOrder().getAmount()
                 ));
+                RevenueTotal += co.getOrder().getAmount();
             }
-
+            writer.write(String.format(",,,,,%.2f\n", RevenueTotal));
         } catch (IOException e) {
             System.out.println("Error writing CSV file: " + e.getMessage());
             e.printStackTrace();

@@ -57,6 +57,9 @@ public class addOrder implements ActionListener {
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Please enter a valid price (e.g. 9.99)");
             }
+            panel.getNameOrderLabel().setTextInput("");
+            panel.getEmailOrder().setTextInput("");
+            panel.getPriceOrderLabel().setTextInput("");
         } catch (SQLException d) {
             d.printStackTrace();
         }
