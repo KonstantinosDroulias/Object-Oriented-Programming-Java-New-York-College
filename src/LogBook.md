@@ -55,6 +55,74 @@ Doing this project reminded me how bad is to try to make a layout work with swin
 <img src="/src/weeksTasks/week04/images/sqlorders.png" width="450px">
 <img src="/src/weeksTasks/week04/images/sqlcustomer.png" width="450px">
 
+# FINAL ASSIGMENTS
+
+## 1. Storage Tracking App
+
+### MySQL code if you want to replicate results
+"
+USE StoreStorageJavaApp;
+
+CREATE TABLE Brands (
+BrandID INT PRIMARY KEY AUTO_INCREMENT,
+BrandName VARCHAR(100) NOT NULL
+);
+CREATE TABLE Products (
+ProductID INT PRIMARY KEY AUTO_INCREMENT,
+Name VARCHAR(100) NOT NULL,
+SKU VARCHAR(50) NOT NULL,
+Price DECIMAL(10,2) NOT NULL
+);
+CREATE TABLE Electronics (
+ElectronicsID INT PRIMARY KEY AUTO_INCREMENT,
+ProductID INT,
+BrandID INT,
+Stock INT,
+WarrantyPeriod INT,
+FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+FOREIGN KEY (BrandID) REFERENCES Brands(BrandID)
+);
+CREATE TABLE Groceries (
+GroceriesID INT PRIMARY KEY AUTO_INCREMENT,
+ProductID INT,
+WeightStock DECIMAL(10,2),
+FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+CREATE TABLE Material (
+MaterialID INT PRIMARY KEY AUTO_INCREMENT,
+Material VARCHAR(100) NOT NULL
+);
+CREATE TABLE Clothing (
+ClothingID INT PRIMARY KEY AUTO_INCREMENT,
+ProductID INT,
+MaterialID INT,
+FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+FOREIGN KEY (MaterialID) REFERENCES Material(MaterialID)
+);
+CREATE TABLE Size (
+SizeID INT PRIMARY KEY AUTO_INCREMENT,
+Size VARCHAR(10) NOT NULL
+);
+CREATE TABLE ClothingSizes (
+ClothingID INT,
+SizeID INT,
+PRIMARY KEY (ClothingID, SizeID),
+FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),
+FOREIGN KEY (SizeID) REFERENCES Size(SizeID)
+);
+CREATE TABLE Colors (
+ColorID INT PRIMARY KEY AUTO_INCREMENT,
+Color VARCHAR(50) NOT NULL
+);
+CREATE TABLE ClothingColors (
+ClothingID INT,
+ColorID INT,
+PRIMARY KEY (ClothingID, ColorID),
+FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),
+FOREIGN KEY (ColorID) REFERENCES Colors(ColorID)
+);
+"
+
 *NOTE: At the same time as I was taking that course I also complete a Javascript YouTube Course and built 2 apps on my own. A Todo List this is the link <a>https://github.com/KonstantinosDroulias/JavaScript-Todo-App</a> to the github repository(it just needs for me to add a caching functionality so users info doesn't get lost) and a calculator app with only "+" function and I did that in the codepen here is the link <a>https://codepen.io/Konstantinos-Droulias/pen/ZYEBrbw</a> (for some reason when you do plus anything with 0 it doesn't work it's like it doesn't exist example 10 + 7 = 8 haven't yet go around it). 
 Also created my first google chrome extension a pomodoro timer. I am not yet as expirienced with Javascript to create extensions that can manipulate something in others websites but soon. This was a fun project helping me learn how to at least build a chrome extension here is the github link <a>https://github.com/KonstantinosDroulias/chrome-extension-pomodoro-timer</a> (in progress). 
 Finally I have started a course in PHP and started developing my first plugin not ready yet and I haven't even created a repository on github for it soon I will do that and update here
