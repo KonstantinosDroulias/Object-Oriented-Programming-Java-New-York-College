@@ -58,69 +58,107 @@ Doing this project reminded me how bad is to try to make a layout work with swin
 # FINAL ASSIGMENTS
 
 ## 1. Storage Tracking App
+Unfortunately I didn't know about mvc at the time and now I am too deep to try and rearrange it.
 
 ### MySQL code if you want to replicate results
 "
 USE StoreStorageJavaApp;
 
-CREATE TABLE Brands (
-BrandID INT PRIMARY KEY AUTO_INCREMENT,
-BrandName VARCHAR(100) NOT NULL
-);
-CREATE TABLE Products (
-ProductID INT PRIMARY KEY AUTO_INCREMENT,
-Name VARCHAR(100) NOT NULL,
-SKU VARCHAR(50) NOT NULL,
-Price DECIMAL(10,2) NOT NULL
-);
-CREATE TABLE Electronics (
-ElectronicsID INT PRIMARY KEY AUTO_INCREMENT,
-ProductID INT,
-BrandID INT,
-Stock INT,
-WarrantyPeriod INT,
-FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-FOREIGN KEY (BrandID) REFERENCES Brands(BrandID)
-);
-CREATE TABLE Groceries (
-GroceriesID INT PRIMARY KEY AUTO_INCREMENT,
-ProductID INT,
-WeightStock DECIMAL(10,2),
-FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
-);
-CREATE TABLE Material (
-MaterialID INT PRIMARY KEY AUTO_INCREMENT,
-Material VARCHAR(100) NOT NULL
-);
-CREATE TABLE Clothing (
-ClothingID INT PRIMARY KEY AUTO_INCREMENT,
-ProductID INT,
-MaterialID INT,
-FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-FOREIGN KEY (MaterialID) REFERENCES Material(MaterialID)
-);
-CREATE TABLE Size (
-SizeID INT PRIMARY KEY AUTO_INCREMENT,
-Size VARCHAR(10) NOT NULL
-);
-CREATE TABLE ClothingSizes (
-ClothingID INT,
-SizeID INT,
-PRIMARY KEY (ClothingID, SizeID),
-FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),
-FOREIGN KEY (SizeID) REFERENCES Size(SizeID)
-);
-CREATE TABLE Colors (
-ColorID INT PRIMARY KEY AUTO_INCREMENT,
-Color VARCHAR(50) NOT NULL
-);
-CREATE TABLE ClothingColors (
-ClothingID INT,
-ColorID INT,
-PRIMARY KEY (ClothingID, ColorID),
-FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),
-FOREIGN KEY (ColorID) REFERENCES Colors(ColorID)
-);
+CREATE TABLE Brands (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BrandID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BrandName VARCHAR(100) NOT NULL<br>
+);<br>
+
+CREATE TABLE Products (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ProductID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name VARCHAR(100) NOT NULL,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SKU VARCHAR(50) NOT NULL,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Price DECIMAL(10,2) NOT NULL<br>
+);<br>
+
+CREATE TABLE Electronics (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ElectronicsID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ProductID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BrandID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Stock INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;WarrantyPeriod INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ProductID) REFERENCES Products(ProductID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (BrandID) REFERENCES Brands(BrandID)<br>
+);<br>
+
+CREATE TABLE Groceries (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;GroceriesID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ProductID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;WeightStock DECIMAL(10,2),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ProductID) REFERENCES Products(ProductID)<br>
+);<br>
+
+CREATE TABLE Material (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;MaterialID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Material VARCHAR(100) NOT NULL<br>
+);<br>
+
+CREATE TABLE Clothing (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ClothingID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ProductID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;MaterialID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ProductID) REFERENCES Products(ProductID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (MaterialID) REFERENCES Material(MaterialID)<br>
+);<br>
+
+CREATE TABLE Size (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SizeID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Size VARCHAR(10) NOT NULL<br>
+);<br>
+
+CREATE TABLE ClothingSizes (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ClothingID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SizeID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (ClothingID, SizeID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (SizeID) REFERENCES Size(SizeID)<br>
+);<br>
+
+CREATE TABLE Colors (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ColorID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Color VARCHAR(50) NOT NULL<br>
+);<br>
+
+CREATE TABLE ClothingColors (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ClothingID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ColorID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (ClothingID, ColorID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ColorID) REFERENCES Colors(ColorID)<br>
+);<br>
+CREATE TABLE Theme (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ThemeID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Theme VARCHAR(100) NOT NULL<br>
+);<br>
+CREATE TABLE Users (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;UserID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Username VARCHAR(50) UNIQUE NOT NULL,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Name VARCHAR(100) NOT NULL,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SurName VARCHAR(100),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ThemeID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ThemeID) REFERENCES Theme(ThemeID)<br>
+);<br>
+CREATE TABLE WeightMetrics (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;WeightMetricID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Metric VARCHAR(50) NOT NULL<br>
+);<br>
+CREATE TABLE Currencies (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CurrencyID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Currency VARCHAR(50) NOT NULL<br>
+);<br>
+CREATE TABLE StoreWideSettings (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;SettingID INT PRIMARY KEY AUTO_INCREMENT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;WeightMetricID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;CurrencyID INT,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (WeightMetricID) REFERENCES WeightMetrics(WeightMetricID),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (CurrencyID) REFERENCES Currencies(CurrencyID)<br>
+);<br>
+
 "
 
 *NOTE: At the same time as I was taking that course I also complete a Javascript YouTube Course and built 2 apps on my own. A Todo List this is the link <a>https://github.com/KonstantinosDroulias/JavaScript-Todo-App</a> to the github repository(it just needs for me to add a caching functionality so users info doesn't get lost) and a calculator app with only "+" function and I did that in the codepen here is the link <a>https://codepen.io/Konstantinos-Droulias/pen/ZYEBrbw</a> (for some reason when you do plus anything with 0 it doesn't work it's like it doesn't exist example 10 + 7 = 8 haven't yet go around it). 

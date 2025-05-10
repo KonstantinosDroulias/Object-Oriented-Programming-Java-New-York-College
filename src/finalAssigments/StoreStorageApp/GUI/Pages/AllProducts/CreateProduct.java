@@ -1,18 +1,40 @@
 package finalAssigments.StoreStorageApp.GUI.Pages.AllProducts;
 
+import finalAssigments.StoreStorageApp.DBConnection;
+import finalAssigments.StoreStorageApp.GUI.Components.ImageChooser;
 import finalAssigments.StoreStorageApp.GUI.Components.LabelTextInput;
 import finalAssigments.StoreStorageApp.GUI.Components.MyButton;
 import finalAssigments.StoreStorageApp.GUI.Components.MyComboBox;
 import finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs.ClothingPanel;
 import finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs.ElectronicsPanel;
 import finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs.GroceryPanel;
+import finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs.ProductCategory;
+import finalAssigments.StoreStorageApp.SQLQueries.FindIDUtil;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CreateProduct extends JFrame {
+public class CreateProduct extends JFrame implements ActionListener {
+
+    private MyButton AddNewProduct;
+    private LabelTextInput ProductName;
+    private LabelTextInput ProductPrice;
+    private LabelTextInput ProductSKU;
+    private MyComboBox CategorySet;
+    private int productID;
+    private ProductCategory selectedPanel;
+    private ImageChooser chooser;
+    private String imageFileName;
+    private JLabel productPlaceHolderLabel;
+
 
     public CreateProduct(JPanel parent){
         this.setTitle("Add New Product");
@@ -31,8 +53,22 @@ public class CreateProduct extends JFrame {
         ImageIcon productPlaceHolderImage = new ImageIcon("src/finalAssigments/StoreStorageApp/images/products/productplaceholder.jpg");
         Image productPlaceHolderScaled = productPlaceHolderImage.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         ImageIcon productPlaceHolderIcon = new ImageIcon(productPlaceHolderScaled);
-        JLabel productPlaceHolderLabel = new JLabel(productPlaceHolderIcon);
+        productPlaceHolderLabel = new JLabel(productPlaceHolderIcon);
         MyButton productAddImage = new MyButton("Add Image", "", "0xffffff");
+        productAddImage.setActionlistener( e -> {
+                chooser = new ImageChooser();
+                chooser.setSavePath("src/finalAssigments/StoreStorageApp/images/products");
+                chooser.choose(this);
+                imageFileName = chooser.getSavedFileName();
+
+                if (imageFileName != null) {
+                    ImageIcon newImage = new ImageIcon("src/finalAssigments/StoreStorageApp/images/products/" + imageFileName);
+                    Image scaled = newImage.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
+                    productPlaceHolderLabel.setIcon(new ImageIcon(scaled));
+                    productPlaceHolderLabel.setText(null);
+                }
+        }
+        );
         productPlaceHolderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         productAddImage.setAlignmentX(Component.CENTER_ALIGNMENT);
         LeftPanel.add(productPlaceHolderLabel);
@@ -42,14 +78,14 @@ public class CreateProduct extends JFrame {
         JPanel RightPanel = new JPanel();
         RightPanel.setLayout(new BoxLayout(RightPanel, BoxLayout.Y_AXIS));
         JPanel fillSpace = new JPanel(new GridLayout(1, 1));
-        LabelTextInput ProductName = new LabelTextInput("Product Name", "", false);
+        ProductName = new LabelTextInput("Product Name", "", false);
         ProductName.setAlignmentX(Component.LEFT_ALIGNMENT);
         fillSpace.add(ProductName);
 
         JPanel SideBySidePanel = new JPanel();
         SideBySidePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        LabelTextInput ProductPrice = new LabelTextInput("Product Price", "", false);
-        LabelTextInput ProductSKU = new LabelTextInput("Product SKU", "Product store code", false);
+        ProductPrice = new LabelTextInput("Product Price", "", false);
+        ProductSKU = new LabelTextInput("Product SKU", "Product store code", false);
         SideBySidePanel.add(ProductPrice);
         SideBySidePanel.add(ProductSKU);
 
@@ -57,7 +93,7 @@ public class CreateProduct extends JFrame {
         ProductCategories.add("Electronics");
         ProductCategories.add("Clothing");
         ProductCategories.add("Grocery");
-        MyComboBox CategorySet = new MyComboBox("Select Product Category", ProductCategories);
+        CategorySet = new MyComboBox("Select Product Category", ProductCategories);
 
         RightPanel.add(fillSpace);
         RightPanel.add(SideBySidePanel);
@@ -78,21 +114,28 @@ public class CreateProduct extends JFrame {
         categoryInputs.add(electronicsInputPanel, "Electronics");
         categoryInputs.add(clothingInputPanel, "Clothing");
         categoryInputs.add(groceryInputPanel, "Grocery");
+        selectedPanel = electronicsInputPanel;
+        inputsManager.show(categoryInputs, "Electronics");
+
 
         CategorySet.setActionListener(e -> {
             String selected = CategorySet.getSelectedItem();
             if ("Electronics".equals(selected)) {
+                selectedPanel = electronicsInputPanel;
                 inputsManager.show(categoryInputs, "Electronics");
             } else if ("Clothing".equals(selected)) {
+                selectedPanel = clothingInputPanel;
                 inputsManager.show(categoryInputs, "Clothing");
             } else if ("Grocery".equals(selected)) {
+                selectedPanel = groceryInputPanel;
                 inputsManager.show(categoryInputs, "Grocery");
             }
         });
 
         JPanel bottomPanel = new JPanel();
-        MyButton AddNewProduct = new MyButton("Add Product", "", "0xA081FF");
+        AddNewProduct = new MyButton("Add Product", "", "0xA081FF");
         AddNewProduct.setAlignmentX(Component.CENTER_ALIGNMENT);
+        AddNewProduct.setActionlistener(this);
         bottomPanel.add(AddNewProduct);
 
         this.add(topPanel, BorderLayout.NORTH);
@@ -103,4 +146,39 @@ public class CreateProduct extends JFrame {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == AddNewProduct) {
+            try {
+                DBConnection db = new DBConnection();
+                Connection conn = db.getConnection();
+
+                String createProduct = "INSERT INTO Products (Name, SKU, Price, Image) VALUES (?, ?, ?, ?)";
+                PreparedStatement stmt = conn.prepareStatement(createProduct);
+
+                stmt.setString(1, ProductName.getTextInput());
+                stmt.setString(2, ProductSKU.getTextInput());
+                /* INSERTING PRICE */
+                double price;
+                try {
+                    price = Double.parseDouble(ProductPrice.getTextInput());
+                    stmt.setDouble(3, price);
+                } catch (NumberFormatException ex) {
+                    ProductPrice.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+                    JOptionPane.showMessageDialog(null, "Invalid Price: must be a number 0.00");
+                    ex.printStackTrace();
+                }
+                stmt.setString(4, imageFileName);
+                int rowsInserted = stmt.executeUpdate();
+                productID = FindIDUtil.findID("ProductID", "Products", "Name", ProductName.getTextInput());
+                if (selectedPanel != null) {
+                    selectedPanel.insertCategoryData(productID, conn);
+                }
+                stmt.close();
+            } catch (Exception e1) {
+                System.out.println("Adding New Product Failed - Unable to connect to database" + e1.getMessage());
+                e1.printStackTrace();
+            }
+        }
+    }
 }
