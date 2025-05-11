@@ -74,6 +74,7 @@ CREATE TABLE Products (<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Name VARCHAR(100) NOT NULL,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;SKU VARCHAR(50) NOT NULL,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Price DECIMAL(10,2) NOT NULL<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Image VARCHAR(125) NOT NULL<br>
 );<br>
 
 CREATE TABLE Electronics (<br>
@@ -122,6 +123,7 @@ CREATE TABLE ClothingSizes (<br>
 CREATE TABLE Colors (<br>
 &nbsp;&nbsp;&nbsp;&nbsp;ColorID INT PRIMARY KEY AUTO_INCREMENT,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Color VARCHAR(50) NOT NULL<br>
+&nbsp;&nbsp;&nbsp;&nbsp;HexColor VARCHAR(10) NOT NULL<br>
 );<br>
 
 CREATE TABLE ClothingColors (<br>

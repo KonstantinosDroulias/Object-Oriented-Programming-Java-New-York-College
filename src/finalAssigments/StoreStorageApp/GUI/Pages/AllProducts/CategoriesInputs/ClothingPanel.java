@@ -47,7 +47,7 @@ public class ClothingPanel extends JPanel implements ProductCategory {
 
     @Override
     public void insertCategoryData(int productID, Connection conn) throws SQLException {
-        String ClothingQuery = "INSERT INTO Clothing (ProductID, MaterialID) VALUES (?, ?, ?)";
+        String ClothingQuery = "INSERT INTO Clothing (ProductID, MaterialID) VALUES (?, ?)";
         PreparedStatement queryData = conn.prepareStatement(ClothingQuery);
         queryData.setInt(1, productID);
         String material = materialSelection.getSelectedItem();
