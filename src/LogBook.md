@@ -61,6 +61,22 @@ Doing this project reminded me how bad is to try to make a layout work with swin
 Unfortunately I didn't know about mvc at the time and now I am too deep to try and rearrange it. Completing this assigment took a lot of time (4 - 5 days across 3hours + sessions).
 I know it's not perfect it could have better error handling and also protecting more of the empty inputs, but I think I already gave a lot to this project.
 
+#### Home
+<img src="/src/finalAssigments/StoreStorageApp/images/screenshots/Home.png" width="450px">
+
+#### Add New Product
+<img src="/src/finalAssigments/StoreStorageApp/images/screenshots/Add.png" width="450px">
+
+#### Modify Product
+<img src="/src/finalAssigments/StoreStorageApp/images/screenshots/modify.png" width="450px">
+
+#### Searching products
+<img src="/src/finalAssigments/StoreStorageApp/images/screenshots/Search.png" width="450px">
+
+#### Attributes
+<img src="/src/finalAssigments/StoreStorageApp/images/screenshots/Attributes.png" width="450px">
+
+
 ### MySQL code if you want to replicate results
 "
 USE StoreStorageJavaApp;
@@ -150,7 +166,8 @@ CREATE TABLE StoreWideSettings (<br>
 &nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (CurrencyID) REFERENCES Currencies(CurrencyID)<br>
 );<br>
 
-"
+## 2. Hang Man Game
+
 
 *NOTE: At the same time as I was taking that course I also complete a Javascript YouTube Course and built 2 apps on my own. A Todo List this is the link <a>https://github.com/KonstantinosDroulias/JavaScript-Todo-App</a> to the github repository(it just needs for me to add a caching functionality so users info doesn't get lost) and a calculator app with only "+" function and I did that in the codepen here is the link <a>https://codepen.io/Konstantinos-Droulias/pen/ZYEBrbw</a> (for some reason when you do plus anything with 0 it doesn't work it's like it doesn't exist example 10 + 7 = 8 haven't yet go around it). 
 Also created my first google chrome extension a pomodoro timer. I am not yet as expirienced with Javascript to create extensions that can manipulate something in others websites but soon. This was a fun project helping me learn how to at least build a chrome extension here is the github link <a>https://github.com/KonstantinosDroulias/chrome-extension-pomodoro-timer</a> (in progress). 
