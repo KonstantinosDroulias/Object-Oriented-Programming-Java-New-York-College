@@ -40,10 +40,10 @@ public class MultiSelection extends JPanel {
         return selected;
     }
 
-    // Set selected checkboxes based on input list
     public void setSelectedItems(ArrayList<String> itemsToSelect) {
         for (JCheckBox box : checkBoxList) {
             box.setSelected(itemsToSelect.contains(box.getText()));
         }
     }
+
 }

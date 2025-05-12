@@ -47,11 +47,23 @@ public class AllProducts extends JPanel {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBorder(new EmptyBorder(12, 6, 12, 12));
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
-        LabelTextInput searchProduct = new LabelTextInput("Search Product", "Search by name or SKU", true);
+        LabelTextInput searchProduct = new LabelTextInput("Search Product", "", true);
+        searchProduct.setActionListener(e -> {
+            new Search(searchProduct.getTextInput().trim(), productModel, products);
+        });
+
         MyButton AddNewProduct = new MyButton("Add New Product", "", "0xA081FF");
         AddNewProduct.addActionListener(e -> {new CreateProduct(this);});
         MyButton Modify = new MyButton("Modify Product", "", "0xFFFFFF");
-        Modify.addActionListener(e -> {new Modify(this);});
+        Modify.addActionListener(e -> {
+            Products selectedProduct = productsList.getSelectedValue();
+            if (selectedProduct != null) {
+                new Modify(this, selectedProduct);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a product to modify.");
+            }
+        });
+
         MyButton Refresh = new MyButton("Refresh", "", "0xFFFFFF");
         Refresh.setActionlistener(e -> {
             try {

@@ -1,5 +1,6 @@
 package finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs;
 
+import finalAssigments.StoreStorageApp.Clothing;
 import finalAssigments.StoreStorageApp.DBConnection;
 import finalAssigments.StoreStorageApp.GUI.Components.MultiSelection;
 import finalAssigments.StoreStorageApp.GUI.Components.MyComboBox;
@@ -45,6 +46,13 @@ public class ClothingPanel extends JPanel implements ProductCategory {
         this.add(Box.createVerticalGlue());
     }
 
+    public void setData(Clothing product) {
+        materialSelection.setSelectedItem(product.getMaterial());
+        sizesSelection.setSelectedItems(product.getSize());
+        colorsSelection.setSelectedItems(product.getColor());
+    }
+
+
     @Override
     public void insertCategoryData(int productID, Connection conn) throws SQLException {
         String ClothingQuery = "INSERT INTO Clothing (ProductID, MaterialID) VALUES (?, ?)";
@@ -62,6 +70,33 @@ public class ClothingPanel extends JPanel implements ProductCategory {
             JoinTableUtil.insertJoin(conn, "ClothingColors", "ClothingID", "Clothing", "ProductID", productID, "ColorID", "Colors", "Color", color);
         }
         queryData.close();
+    }
+
+    @Override
+    public void updateCategoryData(int productId, Connection conn) {
+        try {
+            String updateQuery = "UPDATE Clothing SET MaterialID = ? WHERE ProductID = ?";
+            PreparedStatement stmt = conn.prepareStatement(updateQuery);
+            int materialId = FindIDUtil.findID("MaterialID", "Material", "Material", materialSelection.getSelectedItem());
+            stmt.setInt(1, materialId);
+            stmt.setInt(2, productId);
+            stmt.executeUpdate();
+            stmt.close();
+
+            // I couldn't think of a way to do this so I asked ai to help me out. Apparently I need to learn join tables...
+            JoinTableUtil.clearJoins(conn, "ClothingSizes", "ClothingID", "Clothing", "ProductID", productId);
+            for (String size : sizesSelection.getSelectedItems()) {
+                JoinTableUtil.insertJoin(conn, "ClothingSizes", "ClothingID", "Clothing", "ProductID", productId, "SizeID", "Size", "Size", size);
+            }
+
+            JoinTableUtil.clearJoins(conn, "ClothingColors", "ClothingID", "Clothing", "ProductID", productId);
+            for (String color : colorsSelection.getSelectedItems()) {
+                JoinTableUtil.insertJoin(conn, "ClothingColors", "ClothingID", "Clothing", "ProductID", productId, "ColorID", "Colors", "Color", color);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to update clothing info.", "Update Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

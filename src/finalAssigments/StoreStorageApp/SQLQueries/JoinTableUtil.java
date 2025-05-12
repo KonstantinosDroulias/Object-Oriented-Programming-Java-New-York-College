@@ -28,4 +28,19 @@ public class JoinTableUtil {
             e.printStackTrace();
         }
     }
+    // this part was also ai for updating the modified clothing products
+    public static void clearJoins(Connection conn, String joinTable, String joinColumn, String targetTable, String targetKey, int targetValue) {
+        try {
+            String sql = "DELETE FROM " + joinTable + " WHERE " + joinColumn + " = (" +
+                    "SELECT " + joinColumn + " FROM " + targetTable + " WHERE " + targetKey + " = ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, targetValue);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

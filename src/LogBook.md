@@ -58,7 +58,8 @@ Doing this project reminded me how bad is to try to make a layout work with swin
 # FINAL ASSIGMENTS
 
 ## 1. Storage Tracking App
-Unfortunately I didn't know about mvc at the time and now I am too deep to try and rearrange it.
+Unfortunately I didn't know about mvc at the time and now I am too deep to try and rearrange it. Completing this assigment took a lot of time (4 - 5 days across 3hours + sessions).
+I know it's not perfect it could have better error handling and also protecting more of the empty inputs, but I think I already gave a lot to this project.
 
 ### MySQL code if you want to replicate results
 "
@@ -132,18 +133,6 @@ CREATE TABLE ClothingColors (<br>
 &nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (ClothingID, ColorID),<br>
 &nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ClothingID) REFERENCES Clothing(ClothingID),<br>
 &nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ColorID) REFERENCES Colors(ColorID)<br>
-);<br>
-CREATE TABLE Theme (<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ThemeID INT PRIMARY KEY AUTO_INCREMENT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Theme VARCHAR(100) NOT NULL<br>
-);<br>
-CREATE TABLE Users (<br>
-&nbsp;&nbsp;&nbsp;&nbsp;UserID INT PRIMARY KEY AUTO_INCREMENT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Username VARCHAR(50) UNIQUE NOT NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;Name VARCHAR(100) NOT NULL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;SurName VARCHAR(100),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;ThemeID INT,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (ThemeID) REFERENCES Theme(ThemeID)<br>
 );<br>
 CREATE TABLE WeightMetrics (<br>
 &nbsp;&nbsp;&nbsp;&nbsp;WeightMetricID INT PRIMARY KEY AUTO_INCREMENT,<br>

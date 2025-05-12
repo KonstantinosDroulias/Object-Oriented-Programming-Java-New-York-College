@@ -1,6 +1,8 @@
 package finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs;
 
+import finalAssigments.StoreStorageApp.Clothing;
 import finalAssigments.StoreStorageApp.GUI.Components.LabelTextInput;
+import finalAssigments.StoreStorageApp.Grocery;
 import finalAssigments.StoreStorageApp.SQLQueries.FindIDUtil;
 import finalAssigments.StoreStorageApp.SQLQueries.JoinTableUtil;
 
@@ -11,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
 
+import static finalAssigments.StoreStorageApp.GUI.Pages.StoreSettings.StoreSettings.storeWeightMetric;
+
 
 public class GroceryPanel extends JPanel implements ProductCategory {
     LabelTextInput weightInput;
@@ -19,13 +23,20 @@ public class GroceryPanel extends JPanel implements ProductCategory {
     public GroceryPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        weightInput = new LabelTextInput("Enter Stock in Weight", "", false);
+        weightInput = new LabelTextInput("Enter Stock in Weight " + storeWeightMetric, "", false);
         expirationDate = new LabelTextInput("Enter Expiration Date", "Input format must be yyyy-mm-dd", false);
         this.add(weightInput);
         this.add((Box.createVerticalStrut(10)));
         this.add(expirationDate);
         this.add(Box.createVerticalGlue());
     }
+
+    public void setData(Grocery product) {
+        weightInput.setTextInput(String.valueOf(product.getWeight()));
+        expirationDate.setTextInput(product.getExpirationDate().toString());
+    }
+
+
 
     @Override
     public void insertCategoryData(int productID, Connection conn) throws SQLException {
@@ -56,4 +67,26 @@ public class GroceryPanel extends JPanel implements ProductCategory {
 
         queryData.close();
     }
+
+    @Override
+    public void updateCategoryData(int productId, Connection conn) {
+        try {
+            String updateQuery = "UPDATE Groceries SET WeightStock = ?, ExpirationDate = ? WHERE ProductID = ?";
+            PreparedStatement stmt = conn.prepareStatement(updateQuery);
+
+            double weight = Double.parseDouble(weightInput.getTextInput().trim());
+            Date date = Date.valueOf(expirationDate.getTextInput().trim());
+
+            stmt.setDouble(1, weight);
+            stmt.setDate(2, date);
+            stmt.setInt(3, productId);
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to update grocery info.", "Update Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }

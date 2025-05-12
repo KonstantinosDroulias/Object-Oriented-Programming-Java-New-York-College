@@ -22,6 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static finalAssigments.StoreStorageApp.GUI.Pages.StoreSettings.StoreSettings.storeCurrency;
+
 public class CreateProduct extends JFrame implements ActionListener {
 
     private MyButton AddNewProduct;
@@ -84,7 +86,7 @@ public class CreateProduct extends JFrame implements ActionListener {
 
         JPanel SideBySidePanel = new JPanel();
         SideBySidePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        ProductPrice = new LabelTextInput("Product Price", "", false);
+        ProductPrice = new LabelTextInput("Product Price " + storeCurrency, "", false);
         ProductSKU = new LabelTextInput("Product SKU", "Product store code", false);
         SideBySidePanel.add(ProductPrice);
         SideBySidePanel.add(ProductSKU);

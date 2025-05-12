@@ -1,6 +1,7 @@
 package finalAssigments.StoreStorageApp.GUI.Pages.AllProducts.CategoriesInputs;
 
 import finalAssigments.StoreStorageApp.DBConnection;
+import finalAssigments.StoreStorageApp.Electronics;
 import finalAssigments.StoreStorageApp.GUI.Components.LabelTextInput;
 import finalAssigments.StoreStorageApp.GUI.Components.MyComboBox;
 import finalAssigments.StoreStorageApp.SQLQueries.ArrayFillUtil;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 
 public class ElectronicsPanel extends JPanel implements ProductCategory {
     private MyComboBox brandsSelection;
-    LabelTextInput stockInput;
-    LabelTextInput warrantyPeriodInput;
+    private LabelTextInput stockInput;
+    private LabelTextInput warrantyPeriodInput;
 
     public ElectronicsPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -40,6 +41,15 @@ public class ElectronicsPanel extends JPanel implements ProductCategory {
         this.add(stockInput);
         this.add(Box.createVerticalGlue());
     }
+
+    public void setData(Electronics product) {
+        brandsSelection.setSelectedItem(product.getBrandName());
+        stockInput.setTextInput(String.valueOf(product.getStock()));
+        warrantyPeriodInput.setTextInput(String.valueOf(product.getWarranty()));
+    }
+
+
+
     @Override
     public void insertCategoryData(int productID, Connection conn) throws SQLException {
         String electronicsData = "INSERT INTO Electronics (ProductID, BrandID, Stock, WarrantyPeriod) VALUES (?, ?,?,?)";
@@ -58,4 +68,28 @@ public class ElectronicsPanel extends JPanel implements ProductCategory {
         int rowInserted = electronics.executeUpdate();
         electronics.close();
     }
+
+    @Override
+    public void updateCategoryData(int productId, Connection conn) {
+        try {
+            String updateQuery = "UPDATE Electronics SET BrandID = ?, Stock = ?, WarrantyPeriod = ? WHERE ProductID = ?";
+            PreparedStatement stmt = conn.prepareStatement(updateQuery);
+            String brand = brandsSelection.getSelectedItem();
+            int brandId = FindIDUtil.findID("BrandID", "Brands", "BrandName", brand);
+            int stock = Integer.parseInt(stockInput.getTextInput().trim());
+            int warranty = Integer.parseInt(warrantyPeriodInput.getTextInput().trim());
+
+            stmt.setInt(1, brandId);
+            stmt.setInt(2, stock);
+            stmt.setInt(3, warranty);
+            stmt.setInt(4, productId);
+
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to update electronics info.", "Update Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }

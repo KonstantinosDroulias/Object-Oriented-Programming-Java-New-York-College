@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
+import static finalAssigments.StoreStorageApp.GUI.Pages.StoreSettings.StoreSettings.storeCurrency;
+import static finalAssigments.StoreStorageApp.GUI.Pages.StoreSettings.StoreSettings.storeWeightMetric;
+
 public class ProductRenderer extends JPanel implements ListCellRenderer<Products> {
     private JLabel imageLabel = new JLabel();
     private JLabel nameLabel = new JLabel();
@@ -30,7 +33,7 @@ public class ProductRenderer extends JPanel implements ListCellRenderer<Products
     @Override
     public Component getListCellRendererComponent(JList<? extends Products> list, Products product, int index,
                                                   boolean isSelected, boolean cellHasFocus) {
-        // Load image based on product
+
         String path = "src/finalAssigments/StoreStorageApp/images/products/" + product.getImageFileName();
         File file = new File(path);
         ImageIcon icon;
@@ -45,13 +48,13 @@ public class ProductRenderer extends JPanel implements ListCellRenderer<Products
         imageLabel.setIcon(new ImageIcon(scaled));
 
         // Set product info
-        String title = product.getProductName() + " — " + product.getPrice() + "€";
+        String title = product.getProductName() + " — " + product.getPrice() + storeCurrency;
         String details = "";
 
         if (product instanceof Electronics e) {
-            details = "Brand: " + e.getBrandName() + " | Warranty: " + e.getWarranty() + "y | Stock: " + e.getStock();
+            details = "Brand: " + e.getBrandName() + " | Warranty: " + e.getWarranty() + " years | Stock: " + e.getStock();
         } else if (product instanceof Grocery g) {
-            details = "Weight: " + g.getWeight() + "kg | Expires: " + g.getExpirationDate();
+            details = "Weight: " + g.getWeight() + storeWeightMetric + " | Expires: " + g.getExpirationDate();
         } else if (product instanceof Clothing c) {
             details = "Size: " + c.getSize() + " | Color: " + c.getColor() + " | Material: " + c.getMaterial();
         }
