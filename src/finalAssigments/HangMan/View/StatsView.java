@@ -1,5 +1,6 @@
 package finalAssigments.HangMan.View;
 
+import finalAssigments.HangMan.Model.GameModel;
 import finalAssigments.HangMan.Model.UserModel;
 import finalAssigments.HangMan.View.components.MyButton;
 
@@ -11,15 +12,29 @@ import static finalAssigments.HangMan.HangMan.jaroFont;
 
 public class StatsView extends JPanel {
     private UserModel user;
+    private GameModel game;
+    private JLabel scoreLabel;
 
-    public StatsView(UserModel user) {
+    public StatsView(UserModel user, GameModel Game) {
         this.user = user;
+        this.game = Game;
 
         this.setLayout(new BorderLayout());
         this.setBorder(new EmptyBorder(12, 8, 12, 8));
 
-        //JPanel livesLeft = new JPanel();
-        //JLabel livesLeftLabel = new JLabel("Lives: " + Lives);
+
+        JPanel gameStats = new JPanel();
+        gameStats.setLayout(new BoxLayout(gameStats, BoxLayout.X_AXIS));
+        gameStats.setOpaque(false);
+
+        ImageIcon rawIcon = new ImageIcon("src/finalAssigments/HangMan/View/images/pixelarticons_heart.png");
+        Image scaledIcon = rawIcon.getImage().getScaledInstance(14, 14, Image.SCALE_SMOOTH);
+        ImageIcon heartIcon = new ImageIcon(scaledIcon);
+        JLabel heartIconLabel = new JLabel(heartIcon);
+
+        gameStats.add(heartIconLabel);
+        gameStats.add(game.getLivesLabel());
+
 
 
         JPanel userStats = new JPanel();
@@ -28,7 +43,7 @@ public class StatsView extends JPanel {
         try {
             JLabel userName = new JLabel(user.getUsername());
             userName.setAlignmentX(Component.RIGHT_ALIGNMENT);
-            JLabel scoreLabel = new JLabel("Score: " + user.getScore());
+            scoreLabel = new JLabel("Score: " + user.getScore());
             scoreLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
             userStats.add(userName);
             userStats.add(scoreLabel);
@@ -38,6 +53,11 @@ public class StatsView extends JPanel {
         this.setBackground(Color.WHITE);
         this.setOpaque(true);
 
+        this.add(gameStats, BorderLayout.WEST);
         this.add(userStats, BorderLayout.EAST);
+    }
+
+    public void updateScoreDisplay(int newScore) {
+        scoreLabel.setText("Score: " + newScore);
     }
 }

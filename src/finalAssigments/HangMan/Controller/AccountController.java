@@ -47,7 +47,7 @@ public class AccountController {
             this.user = userDAO.login(username, password);
             if (user != null) {
                 mainMenuView.updateForUser(user); // unlock New Game, hide buttons
-                new MenuController(mainMenuView, user, frame);
+                new MenuController(mainMenuView, user, frame, userDAO);
                 frame.showView("MainMenu");
             } else {
                 JOptionPane.showMessageDialog(frame, "Invalid credentials", "Error", JOptionPane.ERROR_MESSAGE);
@@ -64,7 +64,7 @@ public class AccountController {
             this.user = userDAO.register(username, password);
             if (user != null) {
                 mainMenuView.updateForUser(user);
-                new MenuController(mainMenuView, user, frame);
+                new MenuController(mainMenuView, user, frame, userDAO);
                 frame.showView("MainMenu");
             } else {
                 JOptionPane.showMessageDialog(frame, "Username already taken or error", "Error", JOptionPane.ERROR_MESSAGE);

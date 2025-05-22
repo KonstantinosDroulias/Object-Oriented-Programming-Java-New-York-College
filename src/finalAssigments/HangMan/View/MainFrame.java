@@ -14,8 +14,8 @@ public class MainFrame extends JFrame {
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
-        //cardPanel.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
 
+        this.setResizable(false);
         this.add(cardPanel, BorderLayout.CENTER);
         this.setVisible(true);
     }

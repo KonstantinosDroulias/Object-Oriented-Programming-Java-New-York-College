@@ -47,4 +47,16 @@ public class UserDAO {
         }
         return null;
     }
+
+    public void updateScore(UserModel user) {
+        try {
+            String query = "UPDATE users SET score = ? WHERE username = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, user.getScore());
+            ps.setString(2, user.getUsername());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
