@@ -67,7 +67,7 @@ public class GameModel {
         lettersUsed.clear();
 
         if (word == null || word.length() == 0) {
-            return ""; // safe fallback
+            return "";
         }
 
         char first = Character.toLowerCase(word.charAt(0));

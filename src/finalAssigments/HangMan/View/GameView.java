@@ -72,8 +72,7 @@ public class GameView extends JPanel {
     }
 
     public void resetDrawing() {
-        drawing.removeAll();
-        drawing.repaint();
+        drawing.setLivesLeft(6);
     }
 
     /* - END SCREEN - */

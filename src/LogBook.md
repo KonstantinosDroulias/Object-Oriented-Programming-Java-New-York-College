@@ -174,6 +174,15 @@ I was wrong this is an update some days later. I am trying MVC on this project a
 I had enough practice with swing, JDBC and java logic but on this project I used heavy AI to help me learn and understand MVC.
 In places where I had to get some data from a diffrent class and was to lazy to add that class in the constructor I would create a function in a class I already had so I could skip that step(Don't know if that is good practice).
 
+#### Home
+<img src="/src/finalAssigments/HangMan/view/images/home.png" width="450px">
+
+#### Login
+<img src="/src/finalAssigments/HangMan/view/images/login.png" width="450px">
+
+#### Game Play
+<img src="/src/finalAssigments/HangMan/view/images/gameplay.png" width="450px">
+
 *NOTE: At the same time as I was taking that course I also complete a Javascript YouTube Course and built 2 apps on my own. A Todo List this is the link <a>https://github.com/KonstantinosDroulias/JavaScript-Todo-App</a> to the github repository and a calculator app with only "+" function and I did that in the codepen here is the link <a>https://codepen.io/Konstantinos-Droulias/pen/ZYEBrbw</a> (for some reason when you do plus anything with 0 it doesn't work it's like it doesn't exist example 10 + 7 = 8).
 Finally, I have started a course in PHP and started developing my first plugin not ready yet and I haven't even created a repository on github...
 
